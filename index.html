@@ -39,7 +39,14 @@
         .section { padding: 100px 2rem; max-width: 1200px; margin: 0 auto; }
         
         /* КАРТОЧКА ИГРЫ (Исправленная) */
-        .game-showcase { display: flex; justify-content: center; padding: 20px; }
+        /* Найди это в коде и замени */
+        .game-showcase { 
+            display: flex; 
+            flex-direction: column; /* Это заставит карточки встать в колонку */
+            align-items: center;    /* Центрирует их по горизонтали */
+            gap: 30px;              /* Расстояние между верхней и нижней карточкой */
+            padding: 20px; 
+        }
         .game-card { 
             background: #2c3e50; 
             padding: 30px; 
@@ -139,17 +146,28 @@
 
         <section id="games" class="section">
             <h2 style="text-align:center;">Наши игры</h2>
-            <div class="game-showcase">
+            <div class="game-showcase" style="display: flex; flex-direction: column; align-items: center; gap: 50px;">
+
                 <div class="game-card">
                     <img src="Game.jpg" alt="5 ночей в шараге">
-                    <h3>5 ночей в шараге</h3>
-                    <p>Доступно бесплатно на всех платформах!</p>
+                    <h3>5 ночей в школе</h3>
+                    <p>Выживи в стенах родной школы.</p>
                     <div style="display:flex; gap:20px; justify-content:center; flex-wrap: wrap;">
-                        <a href="https://drive.google.com/file/d/1DBHhHFMXoUHwkQLaoxkUYSLbgcNb3vIB/view?usp=sharing" onclick="countDl()">ПК</a>
+                        <a href="https://drive.google.com/file/d/1DBHhHFMXoUHwkQLaoxkUYSLbgcNb3vIB/view?usp=sharing" class="cta-button" onclick="countDl()">СКАЧАТЬ</a>
                     </div>
                 </div>
+
+                <div class="game-card">
+                    <img src="PolyAtom.png" alt="PolyAtom">
+                <h3>PolyAtom</h3>
+                    <p>Проект на собственном движке. В разработке.</p>
+                    <div style="display:flex; gap:20px; justify-content:center; flex-wrap: wrap;">
+                        <button style="background: #333; color: #777; border: 1px solid #444; cursor: not-allowed; padding: 10px 25px;">СКОРО</button>
+                    </div>
+                </div>
+
             </div>
-        </section>
+    </section>
 
         <section id="community" class="section">
             <div class="container">
@@ -332,14 +350,6 @@
         const countRef = db.ref('downloads/total');
         countRef.on('value', s => document.getElementById('count-number').innerText = s.val() || 0);
         function countDl() { countRef.transaction(c => (c || 0) + 1); }
-
-        setInterval(() => {
-            const s = document.createElement('div');
-            s.innerHTML = '❄';
-            s.style.cssText = `position:fixed; top:-20px; color:white; pointer-events:none; left:${Math.random()*100}vw; animation: fall ${Math.random()*3+2}s linear forwards; z-index:9999;`;
-            document.body.appendChild(s);
-            setTimeout(() => s.remove(), 5000);
-        }, 300);
     </script>
 </body>
 </html>
